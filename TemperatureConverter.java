@@ -1,42 +1,47 @@
 import java.util.Scanner;
 
+public class TemperatureConverter {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        boolean continueLoop = true;
 
-public class TemperatureConverter{
-    public static void main(String [] args){
-        Scanner input = new Scanner (System.in);
+        while (continueLoop) {
+            System.out.println("Enter a temperature value:");
+            double temp = input.nextDouble();
 
-        System.out.println("Enter a temperature value:");
-        double temp = input.nextDouble();
+            System.out.println("Enter the unit of measurement (C for Celsius, F for Fahrenheit, K for Kelvin):");
+            String unit = input.next().toUpperCase();
 
-        System.out.println("Enter the unit of measurement (C for Celsius, F for Fahrenheit, K for Kelvin):");
-        String unit = input.next().toUpperCase();
+            switch (unit) {
+                case "C":
+                    double fahrenheit = celsiusToFahrenheit(temp);
+                    double kelvin = celsiusToKelvin(temp);
+                    System.out.printf("%.2f°C is equivalent to %.2f°F and %.2fK.%n", temp, fahrenheit, kelvin);
+                    break;
+                case "F":
+                    double celsiusFromFahrenheit = fahrenheitToCelsius(temp);
+                    double kelvinFromFahrenheit = fahrenheitToKelvin(temp);
+                    System.out.printf("%.2f°F is equivalent to %.2f°C and %.2fK.%n", temp, celsiusFromFahrenheit, kelvinFromFahrenheit);
+                    break;
+                case "K":
+                    double celsiusFromKelvin = kelvinToCelsius(temp);
+                    double fahrenheitFromKelvin = kelvinToFahrenheit(temp);
+                    System.out.printf("%.2fK is equivalent to %.2f°C and %.2f°F.%n", temp, celsiusFromKelvin, fahrenheitFromKelvin);
+                    break;
+                default:
+                    System.out.println("Invalid unit of measurement. Please enter C for Celsius, F for Fahrenheit, or K for Kelvin.");
+            }
 
-        switch(unit){
-            case "C":
-                double fahrenheit = celsiusToFahrenheit(temp);
-                double kelvin = celsiusToKelvin(temp);
-                System.out.printf("%.2f°C is equivalent to %.2f°F and %.2fK.%n", temp, fahrenheit, kelvin);
-                break;
-            case "F":
-                double celsiusFromFahrenheit = fahrenheitToCelsius(temp);
-                double kelvinFromFahrenheit = fahrenheitToKelvin(temp);
-                System.out.printf("%.2f°F is equivalent to %.2f°C and %.2fK.%n", temp, celsiusFromFahrenheit, kelvinFromFahrenheit);
-                break;
-            case "K":
-                double celsiusFromKelvin = kelvinToCelsius(temp);
-                double fahrenheitFromKelvin = kelvinToFahrenheit(temp);
-                System.out.printf("%.2fK is equivalent to %.2f°C and %.2f°F.%n", temp, celsiusFromKelvin, fahrenheitFromKelvin);
-                break;
-            default:
-                System.out.println("Invalid unit of measurement. Please enter C for Celsius, F for Fahrenheit, or K for Kelvin.");
+            System.out.println("Would you like to convert another temperature? (Y to continue, Q to quit):");
+            String choice = input.next().toUpperCase();
+            if (choice.equals("Q")) {
+                continueLoop = false;
+            }
         }
+
         input.close();
-        
-        
-
-
-
     }
+
     public static double celsiusToFahrenheit(double celsius) {
         return (celsius * 9/5) + 32;
     }
@@ -60,10 +65,5 @@ public class TemperatureConverter{
     public static double kelvinToFahrenheit(double kelvin) {
         return (kelvin - 273.15) * 9/5 + 32;
     }
-
-
-
-
-
 }
 
